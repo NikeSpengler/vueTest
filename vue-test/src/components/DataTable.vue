@@ -1,20 +1,57 @@
 <script>
-import aktivBo from '../aktivbo.json'
+
+import projects from '../aktivbo.json'
+import { ref, computed } from 'vue';
+
 
 export default {
   data() {
     return { 
-      data: aktivBo 
+      data: projects 
     }
   }
  }
+
+
+// Reactive variable for the selected project type
+const filterProjectType = ref('all'); // Default is 'all' to show all projects
+
+// Computed property to filter the JSON data based on the selected project type
+const filteredProjects = computed(() => {
+  return filterProjectType.value === 'all'
+    ? projects // If 'all' is selected, return all projects
+    : projects.filter(item => item.project_type === filterProjectType.value);
+});
+
 </script>
 
 
 <template>
     <div class="bg-white relative border rounded-lg">
-        <table class="w-full test sm text-left text-grey-500">
-            <thead class="text-xs text-gray-700 uppercase bg-grey-50">
+        <div class="flex items-center justify-between">
+          
+            <!--Sort button-->
+
+
+            
+             <!-- Dropdown to select the project type for filtering -->
+             <div>
+                <label for="projectType">Undersökningstyp:</label>
+                <select v-model="filterProjectType" id="projectType">
+                    <option value="all">All</option>
+                    <option value="Standard project">Standard project</option>
+                    <option value="Continuous project">Continuous project</option>
+                </select>
+             </div>
+              
+          
+    
+
+   
+
+        </div>
+        <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-sm text-gray-700 bg-gray-50">
                 <tr>
                     <th class="px-4 py-3">Projektnamn</th>
                     <th class="px-4 py-3">Projektstatus</th>
@@ -24,18 +61,25 @@ export default {
                     <th class="px-4 py-3">Integration</th>
                     <th class="px-4 py-3">Startdatum</th>
                     <th class="px-4 py-3">Slutdatum</th>
+                    <th class="px-4 py-3">
+                        <span class="sr-only">></span>
+                    </th>
+
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in data" :key="item.id"> 
-                    <td class="px-4 py-3 font-medium text-grey-900">{{ item.project_name }} </td>
-                    <td class="px-4 py-3 font-medium text-grey-900">{{ item.project_status }} </td>
-                    <td class="px-4 py-3 font-medium text-grey-900">{{ item.project_type}} </td>
-                    <td class="px-4 py-3 font-medium text-grey-900">{{ item.respondent_count }} </td>
-                    <td class="px-4 py-3 font-medium text-grey-900">{{ item.answer_rate_latest }} </td>
-                    <td class="px-4 py-3 font-medium text-grey-900">{{ item.integration }} </td>
-                    <td class="px-4 py-3 font-medium text-grey-900">{{ item.date_start }} </td>
-                    <td class="px-4 py-3 font-medium text-grey-900">{{ item.date_end }} </td>
+                <tr v-for="item in filteredProjects" :key="item.id" class="border-b"> 
+                    <td class="px-4 py-3 font-small text-grey-900">{{ item.project_name }} </td>
+                    <td class="px-4 py-3 font-small text-grey-900">{{ item.project_status }} </td>
+                    <td class="px-4 py-3 font-small text-grey-900">{{ item.project_type}} </td>
+                    <td class="px-4 py-3 font-small text-grey-900">{{ item.respondent_count }} </td>
+                    <td class="px-4 py-3 font-small text-grey-900">{{ item.answer_rate_latest }} </td>
+                    <td class="px-4 py-3 font-small text-grey-900">{{ item.integration }} </td>
+                    <td class="px-4 py-3 font-small text-grey-900">{{ item.date_start }} </td>
+                    <td class="px-4 py-3 font-small text-grey-900">{{ item.date_end }} </td>
+                    <td class="px-4 py-3 flex items-center justify-end">
+                        <a href="#" class="text-indigo-500 hover:underline">></a>
+                    </td>
                 </tr>
             </tbody>
             
@@ -45,17 +89,6 @@ export default {
 </template>
 
 <style>
-.background_box {
-    background-color: white;
-    position: relative;
-    border-radius: 20%;
-    
 
-}
-
-table {
-    background-color: white;
-
-}
 
 </style>

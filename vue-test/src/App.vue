@@ -1,25 +1,21 @@
-<script setup>
-// import aktivBo from './aktivbo.json'
-
-// export default {
-//   data() {
-//     return { 
-//       data: aktivBo 
-//     }
-//   }
-//  }
-import DataTable from './components/DataTable.vue';
-</script>
-
 <template>
   <div>
-   <!--Table goes here-->
-    <DataTable items=""/>
-   
+    <TableView :items="items" @showDetails="handleShowDetails" />
+    <CardView :selectedItem="selectedItem" />
   </div>
- 
 </template>
 
-<style>
+<script setup>
+import { ref } from 'vue';
+import TableView from './components/TableView.vue';
+import CardView from './components/CardView.vue';
+import projects from './aktivbo.json'; // Example JSON file
 
-</style>
+const items = ref(projects);
+const selectedItem = ref(null);
+
+// Handle showing details when a "Details" button is clicked
+const handleShowDetails = (item) => {
+  selectedItem.value = item;
+};
+</script>
