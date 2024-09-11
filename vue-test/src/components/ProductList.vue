@@ -1,88 +1,92 @@
 <template>
-    <div class="bg-white relative border rounded-lg">
-      <h1 class="text-4xl font-bold p-4 text-sky-900">AktivBo</h1>
-  
-      <!-- Filter and Sort Controls -->
-      <div class="flex items-center justify-between p-4">
-        <!-- Dropdown to filter by project type -->
-        <div>
-          <label for="surveyType" class="mr-2 text-sky-900">Undersökningstyp:</label>
-          <select v-model="filterProjectType" id="surveyType" class="border p-2">
-            <option value="all">All</option>
-            <option value="Felanmälan">Felanmälan</option>
-            <option value="Utflytt">Utflytt</option>
-            <option value="Inflytt">Inflytt</option>
-            <option value="CSC Lokal">CSC Lokal</option>
-            <option value="CSC Bostad">CSC Bostad</option>
-          </select>
+    <div>
+        <h1 class="text-4xl font-bold py-12 p-4 text-sky-950">AktivBo Analytics</h1>
+        <div class="bg-white relative border rounded-lg">
+        <!-- <h1 class="text-4xl font-bold p-4 text-sky-950">AktivBo</h1> -->
+    
+        <!-- Filter and Sort Controls -->
+        <div class="flex text-sm items-center justify-between p-4">
+            <!-- Dropdown to filter by project type -->
+            <div>
+            <label for="surveyType" class="mr-2 text-sky-900">Undersökningstyp:</label>
+            <select v-model="filterProjectType" id="surveyType" class="border p-2">
+                <option value="all">All</option>
+                <option value="Felanmälan">Felanmälan</option>
+                <option value="Utflytt">Utflytt</option>
+                <option value="Inflytt">Inflytt</option>
+                <option value="CSC Lokal">CSC Lokal</option>
+                <option value="CSC Bostad">CSC Bostad</option>
+            </select>
+            </div>
+    
+            <!-- Checkbox to filter by favorites -->
+            <div class="ml-4 text-sky-900">
+            <label>
+                <input type="checkbox" v-model="showFavorites" />
+                Favoriter
+            </label>
+            </div>
+    
+            <!-- Button to toggle sorting order by respondent count -->
+            <div class="ml-4 text-sky-900">
+            <label @click="toggleSortOrder" style="cursor: pointer;">
+                Sortera respondenter
+                <span v-if="sortOrder === 'asc'">⇅</span>
+                <span v-else>⇅</span>
+            </label>
+            </div>
         </div>
-  
-        <!-- Checkbox to filter by favorites -->
-        <div class="ml-4 text-sky-900">
-          <label>
-            <input type="checkbox" v-model="showFavorites" />
-            Favoriter
-          </label>
+    
+        <!-- Display filtered and sorted projects in a table -->
+        <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-sm text-sky-900 bg-gray-50">
+            <tr>
+                <th class="px-4 py-3">Projektnamn</th>
+                <th class="px-4 py-3">Projektstatus</th>
+                <th class="px-4 py-3">Undersökningstyp</th>
+                <th class="px-4 py-3">Respondenter</th>
+                <th class="px-4 py-3">Svarsprocent</th>
+                <th class="px-4 py-3">Integration</th>
+                <th class="px-4 py-3">Startdatum</th>
+                <th class="px-4 py-3">Slutdatum</th>
+                <th class="px-4 py-3">Favorit</th>
+                <th class="px-4 py-3">
+                <span class="sr-only">View Details</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="project in filteredAndSortedProjects" :key="project.id" class="border-b hover:bg-gray-50">
+                <td class="px-4 py-3 font-small text-grey-900">{{ project.project_name }} </td>
+                <td class="px-4 py-3 font-small text-grey-900">{{ project.project_status }} </td>
+                <td class="px-4 py-3 font-small text-grey-900">{{ project.survey_type }} </td>
+                <td class="px-4 py-3 font-small text-grey-900">{{ project.respondent_count }} </td>
+                <td class="px-4 py-3 font-small text-grey-900">{{ project.answer_rate_latest }} </td>
+                <td class="px-4 py-3 font-small text-grey-900">{{ project.integration }} </td>
+                <td class="px-4 py-3 font-small text-grey-900">{{ project.date_start }} </td>
+                <td class="px-4 py-3 font-small text-grey-900">{{ project.date_end }} </td>
+                <td class="px-4 py-3 font-small text-grey-900">
+                <button @click.stop="toggleFavorite(project.project_id)">
+                    {{ favoriteProjects.has(project.project_id) ? '★' : '☆' }}
+                </button>
+                </td>
+                <td class="px-4 py-3 flex items-center justify-end">
+                <button @click="viewDetails(project)">></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    
+        <!-- Modal -->
+        <ProductCardModal
+            v-if="selectedProject"
+            :selectedItem="selectedProject"
+            :isVisible="!!selectedProject"
+            @close="selectedProject = null"
+        />
         </div>
-  
-        <!-- Button to toggle sorting order by respondent count -->
-        <div class="ml-4 text-sky-900">
-          <label @click="toggleSortOrder" style="cursor: pointer;">
-            Sortera respondenter
-            <span v-if="sortOrder === 'asc'">⇅</span>
-            <span v-else>⇅</span>
-          </label>
-        </div>
-      </div>
-  
-      <!-- Display filtered and sorted projects in a table -->
-      <table class="w-full text-sm text-left text-gray-500">
-        <thead class="text-sm text-sky-900 bg-gray-50">
-          <tr>
-            <th class="px-4 py-3">Projektnamn</th>
-            <th class="px-4 py-3">Projektstatus</th>
-            <th class="px-4 py-3">Undersökningstyp</th>
-            <th class="px-4 py-3">Respondenter</th>
-            <th class="px-4 py-3">Svarsprocent</th>
-            <th class="px-4 py-3">Integration</th>
-            <th class="px-4 py-3">Startdatum</th>
-            <th class="px-4 py-3">Slutdatum</th>
-            <th class="px-4 py-3">Favorit</th>
-            <th class="px-4 py-3">
-              <span class="sr-only">View Details</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="project in filteredAndSortedProjects" :key="project.id" class="border-b">
-            <td class="px-4 py-3 font-small text-grey-900">{{ project.project_name }} </td>
-            <td class="px-4 py-3 font-small text-grey-900">{{ project.project_status }} </td>
-            <td class="px-4 py-3 font-small text-grey-900">{{ project.survey_type }} </td>
-            <td class="px-4 py-3 font-small text-grey-900">{{ project.respondent_count }} </td>
-            <td class="px-4 py-3 font-small text-grey-900">{{ project.answer_rate_latest }} </td>
-            <td class="px-4 py-3 font-small text-grey-900">{{ project.integration }} </td>
-            <td class="px-4 py-3 font-small text-grey-900">{{ project.date_start }} </td>
-            <td class="px-4 py-3 font-small text-grey-900">{{ project.date_end }} </td>
-            <td class="px-4 py-3 font-small text-grey-900">
-              <button @click.stop="toggleFavorite(project.project_id)">
-                {{ favoriteProjects.has(project.project_id) ? '★' : '☆' }}
-              </button>
-            </td>
-            <td class="px-4 py-3 flex items-center justify-end">
-              <button @click="viewDetails(project)">></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-  
-      <!-- Modal -->
-      <ProductCardModal
-        v-if="selectedProject"
-        :selectedItem="selectedProject"
-        :isVisible="!!selectedProject"
-        @close="selectedProject = null"
-      />
     </div>
+   
   </template>
   
   <script setup>

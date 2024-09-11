@@ -4,10 +4,10 @@
     <h1 class="text-2xl font-bold p-4">AktivBo</h1>
 
     <!-- Filter and Sort Controls -->
-    <div class="flex items-center justify-between p-4">
+    <div class="flex text-sm items-center justify-between p-4">
       <!-- Dropdown to filter by project type -->
       <div>
-        <label for="surveyType" class="mr-2">Undersökningstyp:</label>
+        <label for="surveyType" class="mr-2 text-sm">Undersökningstyp:</label>
         <select v-model="filterProjectType" id="surveyType" class="border p-2">
           <option value="all">All</option>
           <option value="Felanmälan">Felanmälan</option>
@@ -19,7 +19,7 @@
       </div>
 
       <!-- Checkbox to filter by favorites -->
-      <div class="ml-4">
+      <div class="ml-4 text-sm">
         <label>
           <input type="checkbox" v-model="showFavorites" />
           Show Favorites Only
@@ -27,7 +27,7 @@
       </div>
 
       <!-- Button to toggle sorting order by respondent count -->
-      <div class="ml-4">
+      <div class="ml-4 text-sm">
         <label @click="toggleSortOrder" style="cursor: pointer;">
           Sortering av respondenter
           <span v-if="sortOrder === 'asc'">⬆️</span>
@@ -37,7 +37,7 @@
     </div>
 
     <!-- Display filtered and sorted projects in a table -->
-    <table class="w-full text-sm text-left text-gray-500">
+    <table class="w-full text-sm text-left text-gray-700">
       <thead class="text-sm text-gray-700 bg-gray-50">
         <tr>
           <th class="px-4 py-3">Projektnamn</th>
@@ -75,13 +75,6 @@
         </tr>
       </tbody>
     </table>
-    <div>
-    <!-- Render the CardView if a project is selected -->
-    <CardView v-if="selectedItem" :selectedItem="selectedItem" @close="closeCardView" />
-    
-    <!-- Example button to select a project -->
-    <button @click="selectProject(project)">Details</button>
-  </div>
   </div>
 
   
@@ -90,27 +83,6 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import CardView from './CardView.vue'; // Import your CardView component
-
-// Mock project data (Replace with actual data)
-const project = {
-  survey_type: 'Customer Survey',
-  respondent_count: 100,
-  answer_rate_latest: 85
-};
-
-// Reactive variable for selected project
-const selectedItem = ref(null);
-
-// Function to set selected project (opens the CardView)
-const selectProject = (project) => {
-  selectedItem.value = project;
-};
-
-// Function to close the CardView
-const closeCardView = () => {
-  selectedItem.value = null; // Setting to null closes the CardView
-};
 
 // Reactive variables for the data, filter, and sort state
 const projects = ref([]); // Stores the projects data
