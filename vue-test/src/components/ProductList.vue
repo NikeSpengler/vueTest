@@ -29,8 +29,8 @@
         <div class="ml-4">
           <label @click="toggleSortOrder" style="cursor: pointer;">
             Sortering av respondenter
-            <span v-if="sortOrder === 'asc'">⬆️</span>
-            <span v-else>⬇️</span>
+            <span v-if="sortOrder === 'asc'">⇅</span>
+            <span v-else>⇅</span>
           </label>
         </div>
       </div>
