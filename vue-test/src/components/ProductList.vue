@@ -1,12 +1,12 @@
 <template>
     <div class="bg-white relative border rounded-lg">
-      <h1 class="text-4xl font-bold p-4">AktivBo</h1>
+      <h1 class="text-4xl font-bold p-4 text-sky-900">AktivBo</h1>
   
       <!-- Filter and Sort Controls -->
       <div class="flex items-center justify-between p-4">
         <!-- Dropdown to filter by project type -->
         <div>
-          <label for="surveyType" class="mr-2">Undersökningstyp:</label>
+          <label for="surveyType" class="mr-2 text-sky-900">Undersökningstyp:</label>
           <select v-model="filterProjectType" id="surveyType" class="border p-2">
             <option value="all">All</option>
             <option value="Felanmälan">Felanmälan</option>
@@ -18,17 +18,17 @@
         </div>
   
         <!-- Checkbox to filter by favorites -->
-        <div class="ml-4">
+        <div class="ml-4 text-sky-900">
           <label>
             <input type="checkbox" v-model="showFavorites" />
-            Show Favorites Only
+            Favoriter
           </label>
         </div>
   
         <!-- Button to toggle sorting order by respondent count -->
-        <div class="ml-4">
+        <div class="ml-4 text-sky-900">
           <label @click="toggleSortOrder" style="cursor: pointer;">
-            Sortering av respondenter
+            Sortera respondenter
             <span v-if="sortOrder === 'asc'">⇅</span>
             <span v-else>⇅</span>
           </label>
@@ -37,7 +37,7 @@
   
       <!-- Display filtered and sorted projects in a table -->
       <table class="w-full text-sm text-left text-gray-500">
-        <thead class="text-sm text-gray-700 bg-gray-50">
+        <thead class="text-sm text-sky-900 bg-gray-50">
           <tr>
             <th class="px-4 py-3">Projektnamn</th>
             <th class="px-4 py-3">Projektstatus</th>
