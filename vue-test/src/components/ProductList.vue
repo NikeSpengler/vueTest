@@ -40,14 +40,14 @@
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-sm text-sky-900 bg-gray-50">
             <tr>
-                <th class="px-4 py-3">Projektnamn</th>
                 <th class="px-4 py-3">Projektstatus</th>
                 <th class="px-4 py-3">Undersökningstyp</th>
+                <th class="px-4 py-3">Projektnamn</th>
                 <th class="px-4 py-3">Respondenter</th>
-                <th class="px-4 py-3">Svarsprocent</th>
-                <th class="px-4 py-3">Integration</th>
                 <th class="px-4 py-3">Startdatum</th>
-                <th class="px-4 py-3">Slutdatum</th>
+                <th class="px-4 pr-6 py-3">Slutdatum</th>
+                <th class="px-4 py-3">Integration</th>
+                <th class="px-4 py-3">Svarsprocent</th>
                 <th class="px-4 py-3">Favorit</th>
                 <th class="px-4 py-3">
                 <span class="sr-only">View Details</span>
@@ -56,14 +56,14 @@
             </thead>
             <tbody>
             <tr v-for="project in filteredAndSortedProjects" :key="project.id" class="border-b hover:bg-gray-50">
-                <td class="px-4 py-3 font-small text-grey-900">{{ project.project_name }} </td>
                 <td class="px-4 py-3 font-small text-grey-900">{{ project.project_status }} </td>
                 <td class="px-4 py-3 font-small text-grey-900">{{ project.survey_type }} </td>
+                <td class="px-4 py-3 font-small text-grey-900">{{ project.project_name }} </td>
                 <td class="px-4 py-3 font-small text-grey-900">{{ project.respondent_count }} </td>
-                <td class="px-4 py-3 font-small text-grey-900">{{ project.answer_rate_latest }} </td>
-                <td class="px-4 py-3 font-small text-grey-900">{{ project.integration }} </td>
                 <td class="px-4 py-3 font-small text-grey-900">{{ project.date_start }} </td>
                 <td class="px-4 py-3 font-small text-grey-900">{{ project.date_end }} </td>
+                <td class="px-4 py-3 font-small text-grey-900">{{ project.integration }} </td>
+                <td class="px-4 py-3 font-small text-grey-900">{{ project.answer_rate_latest }} </td>
                 <td class="px-4 py-3 font-small text-grey-900 hover:text-grey-100 hover:cursor-pointer">
                 <span @click.stop="toggleFavorite(project.project_id)">
                     {{ favoriteProjects.has(project.project_id) ? '★' : '☆' }}

@@ -10,8 +10,9 @@
         <h2 class="text-sky-900 pt-10 text-3xl font-semibold mb-2">{{ selectedItem.survey_type }}</h2>
         <h1 class="t text-sky-900 mb-2 py-6"> {{ selectedItem.answer_rate_latest }} %</h1>
         <div class="flex items-center justify-between pb-10">
-          <p class="text-gray-700 px-10">Svarsprocent: {{ selectedItem.answer_rate_latest }}</p>
-          <p class="text-gray-700 pr-10">Antal respondenter: {{ selectedItem.respondent_count }}</p>
+          <p class="text-gray-700 px-10">Antal respondenter: {{ selectedItem.respondent_count }}</p>
+          <p class="text-gray-700 pr-10">Svarsprocent: {{ selectedItem.answer_rate_latest }}</p>
+          
         </div>
       </div>
     </div>
