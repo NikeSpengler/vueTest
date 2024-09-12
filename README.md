@@ -9,7 +9,7 @@ Vue.js, JavaScript, Vite, stylad med hjälp av Tailwind, HTML och CSS.
 
 ## Designskiss skapad i Figma, följ länken nedan för att se:
 
-https://www.figma.com/proto/y4395EsehqKHY7NWCGWjYN/AktivBo---Designtest?node-id=10-170&node-type=CANVAS&t=z7DePG81pMS4nGui-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=10%3A170&share=1
+https://www.figma.com/design/y4395EsehqKHY7NWCGWjYN/AktivBo---Designtest?node-id=0-1&node-type=canvas&t=IHgXZANbznj2BIuC-0
 
 <img width="1115" alt="Skärmavbild 2024-09-12 kl  12 14 19" src="https://github.com/user-attachments/assets/a349e6eb-fcc3-43d9-8153-087debf1e194">
 
