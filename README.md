@@ -5,7 +5,7 @@ Kör npm run dev eller yarn dev för att starta Vite-servern.
 
 ## Byggt i:
 
-Vue, Vite och stylad i Tailwind.
+Vue.js, JavaScript, Vite, stylad med hjälp av Tailwind, HTML och CSS.
 
 ## Designskiss skapad i Figma, följ länken nedan för att se:
 
