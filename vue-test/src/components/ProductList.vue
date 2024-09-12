@@ -65,20 +65,20 @@
                 <td class="px-4 py-3 font-small text-grey-900">{{ project.integration }} </td>
                 <td class="px-4 py-3 font-small text-grey-900">{{ project.date_start }} </td>
                 <td class="px-4 py-3 font-small text-grey-900">{{ project.date_end }} </td>
-                <td class="px-4 py-3 font-small text-grey-900">
-                <button @click.stop="toggleFavorite(project.project_id)">
+                <td class="px-4 py-3 font-small text-grey-900 hover:text-grey-100 hover:cursor-pointer">
+                <span @click.stop="toggleFavorite(project.project_id)">
                     {{ favoriteProjects.has(project.project_id) ? '★' : '☆' }}
-                </button>
+                </span>
                 </td>
-                <td class="px-4 py-3 flex items-center justify-end">
-                <button @click="viewDetails(project)">></button>
+                <td class="px-4 py-3 font-small text-grey-900 hover:text-grey-100 hover:cursor-pointer">
+                <span @click="viewDetails(project)">></span>
                 </td>
             </tr>
             </tbody>
         </table>
     
         <!-- Modal -->
-        <ProductCardModal
+        <ProductCard
             v-if="selectedProject"
             :selectedItem="selectedProject"
             :isVisible="!!selectedProject"
@@ -91,7 +91,8 @@
   
   <script setup>
   import { ref, onMounted, computed } from 'vue';
-  import ProductCardModal from './ProductCardModal.vue'; // Import the CardView component
+//   import ProductCardModal from './ProductCardModal.vue'; // Import the CardView component
+import ProductCard from './ProductCard.vue';
   
   // Reactive variables for the data, filter, and sort state
   const projects = ref([]);

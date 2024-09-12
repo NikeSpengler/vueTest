@@ -14,7 +14,7 @@ import ProjectCardModal from './components/ProductCardModal.vue';
 <template>
   <div>
     <ProductList :items="items" @showDetails="handleShowDetails" />
-    <ProductCardModal :selectedItem="selectedItem" />
+    <ProductCard :selectedItem="selectedItem" />
   </div>
 </template>
 
@@ -22,8 +22,8 @@ import ProjectCardModal from './components/ProductCardModal.vue';
 import { ref } from 'vue';
 // import TableView from './components/TableView.vue'
 import ProductList from './components/ProductList.vue';
-import ProductCardModal from './components/ProductCardModal.vue';
-// import CardView from './components/CardView.vue';
+// import ProductCardModal from './components/ProductCardModal.vue';
+import ProductCard from './components/ProductCard.vue';
 import projects from './aktivbo.json'; // Example JSON file
 
 const items = ref(projects);
