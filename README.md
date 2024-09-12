@@ -1,7 +1,7 @@
 # Programmeringstest och designtest for AktivBo
 
-Att köra projektet,starta utvecklingsservern:
-Kör npm run dev eller yarn dev för att starta Vite-servern.
+Du kan köra projektet genom att starta utvecklingsservern:
+Kör ##npm run dev## eller yarn dev för att starta Vite-servern.
 
 ## Byggt i:
 
