@@ -13,7 +13,6 @@
           <p class="text-gray-700 px-10">Svarsprocent: {{ selectedItem.answer_rate_latest }}</p>
           <p class="text-gray-700 pr-10">Antal respondenter: {{ selectedItem.respondent_count }}</p>
         </div>
-      
       </div>
     </div>
   </template>

@@ -2,7 +2,6 @@
     <div>
         <h1 class="text-4xl font-bold py-12 p-4 text-sky-950">AktivBo Analytics</h1>
         <div class="bg-white relative border rounded-lg">
-        <!-- <h1 class="text-4xl font-bold p-4 text-sky-950">AktivBo</h1> -->
     
         <!-- Filter and Sort Controls -->
         <div class="flex text-sm items-center justify-between p-4">
@@ -115,10 +114,12 @@ import ProductCard from './ProductCard.vue';
   // Fetch data when the component is mounted
   onMounted(fetchProjects);
   
+  // Toggle between ascending and descending order
   const toggleSortOrder = () => {
     sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc';
   };
   
+  // Toggle favorite for a project
   const toggleFavorite = (projectId) => {
     if (favoriteProjects.value.has(projectId)) {
       favoriteProjects.value.delete(projectId);
@@ -127,6 +128,7 @@ import ProductCard from './ProductCard.vue';
     }
   };
   
+    // Filter projects based on selected project_type
   const filteredAndSortedProjects = computed(() => {
     let filteredProjects = filterProjectType.value === 'all'
       ? projects.value
@@ -136,14 +138,17 @@ import ProductCard from './ProductCard.vue';
       filteredProjects = filteredProjects.filter(project => favoriteProjects.value.has(project.project_id));
     }
   
+    // Sort the filtered projects ONLY by respondent_count
     return filteredProjects.sort((a, b) => {
       const countA = parseInt(a.respondent_count, 10);
       const countB = parseInt(b.respondent_count, 10);
   
+      // Sort ascending or descending based on sortOrder
       return sortOrder.value === 'asc' ? countA - countB : countB - countA;
     });
   });
   
+  // Cardview
   const viewDetails = (project) => {
     selectedProject.value = project;
   };
